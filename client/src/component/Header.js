@@ -8,7 +8,6 @@ export default class Header extends React.Component {
             curDate: new Date(),
         };
     }
-
     componentDidMount() {
         this.timeID = setInterval(() => {
             this.tick();
@@ -20,7 +19,9 @@ export default class Header extends React.Component {
     }
 
     tick() {
-        this.setState((state, props) => {
+        this.setState((preState, preProps) => {
+            console.log(preProps);
+            console.log(preState);
             return {
                 curDate: new Date(),
             }

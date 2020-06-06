@@ -1,11 +1,12 @@
 import React from "react";
-
-export default function Navigator(props) {
+import { Button } from "antd";
+export default function Navigator() {
     return (
         <div>
             <h1>
                 navigator
             </h1>
+            <Button type="primary">Click</Button>
         </div>
     )
 }
