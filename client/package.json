@@ -150,6 +150,7 @@
     ]
   },
   "devDependencies": {
+    "eslint-config-airbnb": "^18.1.0",
     "less": "^3.11.3",
     "less-loader": "^6.1.0"
   }

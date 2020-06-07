@@ -1,6 +1,9 @@
-import React from "react";
-import { Button } from "antd";
+import React, { useState } from 'react';
+import { Button } from 'antd';
+
 export default function Navigator() {
+	const [ count, setCount ] = useState(0);
+	window.console.log(count, setCount)
     return (
         <div>
             <h1>

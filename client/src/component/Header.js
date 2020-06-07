@@ -1,4 +1,4 @@
-import React  from "react";
+import React from 'react';
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -8,6 +8,7 @@ export default class Header extends React.Component {
             curDate: new Date(),
         };
     }
+
     componentDidMount() {
         this.timeID = setInterval(() => {
             this.tick();
@@ -20,8 +21,8 @@ export default class Header extends React.Component {
 
     tick() {
         this.setState((preState, preProps) => {
-            console.log(preProps);
-            console.log(preState);
+            window.console.log(preProps);
+            window.console.log(preState);
             return {
                 curDate: new Date(),
             }
@@ -29,10 +30,11 @@ export default class Header extends React.Component {
     }
 
     render() {
+        const { curDate } = this.state;
         return (
             <div>
                 <h1>Clock</h1>
-                <h2>It is { this.state.curDate.toLocaleTimeString() }</h2>
+                <h2>It is { curDate.toLocaleTimeString() }</h2>
             </div>
         );
     }
