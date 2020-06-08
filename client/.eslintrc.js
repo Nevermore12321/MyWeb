@@ -97,5 +97,7 @@ module.exports =  {
         "no-shadow": [ 1 ],
         "camelcase": [ 1 ],
         "no-underscore-dangle" : [0, "always"],
+        "max-classes-per-file": [1, 5],
+        "react/require-default-props": 0
     },
 };
