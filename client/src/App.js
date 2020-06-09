@@ -4,6 +4,7 @@ import Header from './component/Header';
 import Footer from './component/Footer';
 import HOC from './component/HOC';
 import Context from './component/Context';
+import StateHook from './component/Hook';
 import './App.less'
 
 export default class App extends React.PureComponent {
@@ -17,6 +18,7 @@ export default class App extends React.PureComponent {
                 </h1>
                 <HOC hocTitle="父组件 props" />
                 <Context />
+                <StateHook />
                 <Footer />
             </div>
         );
