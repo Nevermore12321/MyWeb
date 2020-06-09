@@ -98,6 +98,7 @@ module.exports =  {
         "camelcase": [ 1 ],
         "no-underscore-dangle" : [0, "always"],
         "max-classes-per-file": [1, 5],
-        "react/require-default-props": 0
+        "react/require-default-props": 0,
+        "react/jsx-props-no-spreading": "off",
     },
 };

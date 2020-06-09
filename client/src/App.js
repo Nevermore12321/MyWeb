@@ -2,6 +2,8 @@ import React from 'react';
 import Navigator from './component/Navigator';
 import Header from './component/Header';
 import Footer from './component/Footer';
+import HOC from './component/HOC';
+import Context from './component/Context';
 import './App.less'
 
 export default class App extends React.PureComponent {
@@ -13,6 +15,8 @@ export default class App extends React.PureComponent {
                 <h1>
                     Hello World!
                 </h1>
+                <HOC hocTitle="父组件 props" />
+                <Context />
                 <Footer />
             </div>
         );
