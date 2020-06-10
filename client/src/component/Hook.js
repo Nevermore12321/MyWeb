@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Button } from 'antd';
+import { TomContext, JerryContext } from '../Store/ContextStore';
 
 function StateEffectHook() {
     const [ count, setCount ] = useState(0);
+    const TomCtx = useContext(TomContext);
+    const JerryCtx = useContext(JerryContext);
     const handleClick = () => {
         setCount(count + 1);
     };
@@ -19,6 +22,8 @@ function StateEffectHook() {
         <div>
             <h1>点击了 { count } 次</h1>
             <Button onClick={ handleClick }>Click</Button>
+            <p>{ TomCtx.name } is { TomCtx.age } years old.</p>
+            <p>{ JerryCtx.name } is { JerryCtx.age } years old.</p>
         </div>
     );
 }
