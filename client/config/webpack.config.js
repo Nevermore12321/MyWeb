@@ -111,7 +111,31 @@ module.exports = function(webpackEnv) {
         },
       },
     ].filter(Boolean);
-    if (preProcessor) {
+    if (preProcessor && preProcessor === 'less-loader') {
+      loaders.push(
+        {
+          loader: require.resolve('resolve-url-loader'),
+          options: {
+            sourceMap: isEnvProduction && shouldUseSourceMap,
+          },
+        },
+        {
+          loader: require.resolve(preProcessor),
+          options: {
+            sourceMap: true,
+            lessOptions: {
+              modifyVars: {
+                'primary-color': '#1DA57A',
+                'link-color': '#1DA57A',
+                'border-radius-base': '10px',
+              },
+              javascriptEnabled: true,
+            }
+          },
+        }
+      )
+    }
+    if (preProcessor && preProcessor !== 'less-loader') {
       loaders.push(
         {
           loader: require.resolve('resolve-url-loader'),
