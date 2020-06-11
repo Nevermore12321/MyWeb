@@ -5,6 +5,7 @@ import Footer from './component/Footer';
 import HOC from './component/HOC';
 import Context from './component/Context';
 import StateHook from './component/Hook';
+import UseReducer from './component/UseReducer';
 import './App.less'
 
 export default class App extends React.PureComponent {
@@ -19,6 +20,7 @@ export default class App extends React.PureComponent {
                 <HOC hocTitle="父组件 props" />
                 <Context />
                 <StateHook />
+                <UseReducer />
                 <Footer />
             </div>
         );
