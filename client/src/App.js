@@ -7,6 +7,7 @@ import Context from './component/Context';
 import StateHook from './component/Hook';
 import UseReducer from './component/UseReducer';
 import './App.less'
+import ReduxComponent from './Store/ReduxComponent';
 
 export default class App extends React.PureComponent {
     render() {
@@ -21,6 +22,7 @@ export default class App extends React.PureComponent {
                 <Context />
                 <StateHook />
                 <UseReducer />
+                <ReduxComponent />
                 <Footer />
             </div>
         );
