@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 //  PureComponent  判断props属性是否有更新，没有更新就不刷新组件
 class Title extends React.PureComponent {
     render() {
-        window.console.log('title')
+        // window.console.log('title')
         const { title } = this.props;
         return (
             <div>
@@ -21,7 +21,7 @@ Title.propTypes = {
 //  Memo ，使得函数组件也具有 PureComponent 组件的功能
 const Count = React.memo( (props) => {
     const { count } = props;
-    window.console.log('count')
+    // window.console.log('count')
     return (
         <div>
             次数: { count }

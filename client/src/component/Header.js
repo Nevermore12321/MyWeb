@@ -20,13 +20,15 @@ export default class Header extends React.Component {
     }
 
     tick() {
-        this.setState((preState, preProps) => {
-            window.console.log(preProps);
-            window.console.log(preState);
-            return {
+        //  setState 中的回掉函数，接收两个参数，一个是 之前的state，一个是 之前的props
+        //  his.setState((preState, preProps) => { 。。。 }
+        this.setState(() => (
+            // window.console.log(preProps);
+            // window.console.log(preState);
+            {
                 curDate: new Date(),
             }
-        });
+        ));
     }
 
     render() {

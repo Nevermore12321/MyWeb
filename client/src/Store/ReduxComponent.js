@@ -55,9 +55,9 @@ function ReduxComponent(props) {
 }
 
 ReduxComponent.propTypes = {
-    name: PropTypes.string.isRequired,
-    age: PropTypes.number.isRequired,
-    address: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    address: PropTypes.string,
     ChangeName: PropTypes.func,
     ChangeAge: PropTypes.func,
     ChangeAddress: PropTypes.func,
