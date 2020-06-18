@@ -11,7 +11,7 @@ import './index.less';
 
 export default function () {
     return (
-        <div>
+        <div className="footer-container">
             Footer
         </div>
     )
