@@ -14,13 +14,18 @@ module.exports =  {
         // 'prettier', // Use prettier, it can pretty file before executing eslint --fix
         // 'prettier/react' // Use prettier/react to pretty react syntax
     ],
-    // settings: {
-    //     'import/resolver': { // This config is described in article []()
-    //         webpack: {
-    //             config: './webpack/webpack-common-config.js'
-    //         }
-    //     },
-    // },
+    settings: {
+        'import/resolver': {
+            alias: {
+                map: [
+                    ['@', './src']
+                ],
+            },
+            webpack: {
+                config: './config/webpack.config.js'
+            }
+        },
+    },
     env: {
         browser: true, // enable all browser global variables
         commonjs: true,
