@@ -64,4 +64,23 @@ export default [
             },
         ],
     },
+
+    //  关于作者
+    {
+        title: '关于我',
+        children: [
+            {
+                title: '关于作者',
+                desc: '小小码农',
+                img: './',
+                link: '/about/me',
+            },
+            {
+                title: '关于网站',
+                desc: '简单架构',
+                img: './',
+                link: '/about/web',
+            },
+        ],
+    },
 ];
