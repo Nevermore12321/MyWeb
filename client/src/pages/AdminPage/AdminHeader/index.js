@@ -8,8 +8,33 @@
 
 import React from 'react';
 import { Row, Col, Tooltip } from 'antd';
+import LinuxIcon from '@/assets/icons/linux_32px.svg';
+import AlgorithmIcon from '@/assets/icons/algorithms_32px.svg';
+import CloudIcon from '@/assets/icons/cloud_32px.svg';
+import DatabaseIcon from '@/assets/icons/database_32px.svg';
+import SystemIcon from '@/assets/icons/system_32px.svg';
+import SigninIcon from '@/assets/icons/signin_32px.svg';
+import PlanIcon from '@/assets/icons/plan_32px.svg';
+import AboutusIcon from '@/assets/icons/aboutus_32px.svg';
+import FrameworkIcon from '@/assets/icons/framework_32px.svg';
 import headListData from './header.config.data';
 import './index.less';
+
+//  子标题前的图标 数组
+const IconImageList = [
+    [
+        LinuxIcon, AlgorithmIcon, CloudIcon,
+    ],
+    [
+        DatabaseIcon, SystemIcon,
+    ],
+    [
+        SigninIcon, PlanIcon,
+    ],
+    [
+        AboutusIcon, FrameworkIcon,
+    ],
+]
 
 export default function (props) {
     //   menu 组件
@@ -19,7 +44,7 @@ export default function (props) {
         const itemContent = item.children.map((childItem, childIndex) => (
             <a href={ childItem.link } className="tip-block" key={ childIndex.toString() }>
                 <span className="tip-img">
-                    <img src={ childItem.img } alt="img" />
+                    <img src={ IconImageList[ index ][ childIndex ] } alt="img" />
                 </span>
                 <div className="tip-content">
                     { childItem.title }
