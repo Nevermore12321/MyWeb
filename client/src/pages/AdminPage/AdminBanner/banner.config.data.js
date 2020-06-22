@@ -10,7 +10,7 @@
 //  tag 特殊处理，也就是button或者其他（p h 等文本标签）
 export default [
     {
-        img: 'dolphin',
+        img: 'AdminPageBanner2.svg',
         className: 'slider-wrap',
         children: [
             {
@@ -42,7 +42,7 @@ export default [
         ],
     },
     {
-        img: 'tree',
+        img: 'AdminPageBanner2.svg',
         className: 'slider-wrap',
         children: [
             {

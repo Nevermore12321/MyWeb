@@ -12,12 +12,11 @@ import RcQueueAnim from 'rc-queue-anim';
 import RcBannerAnim, { Element } from 'rc-banner-anim';
 import './index.less';
 import { Button } from 'antd';
-import treeImage from '@/assets/background/tree.jpg';
-import docphinImage from '@/assets/background/dolphin.jpg'
+import BannerImage2 from '@/assets/background/AdminPageBanner1.svg'
+import BannerImage1 from '@/assets/background/AdminPageBanner2.svg'
 import BannerData from './banner.config.data';
 
-const ImageList = [ treeImage, docphinImage ];
-console.log(ImageList);
+const ImageList = [ BannerImage1, BannerImage2 ];
 const { BgElement } = Element;
 
 //  进出场动画：  'rc-queue-anim'
