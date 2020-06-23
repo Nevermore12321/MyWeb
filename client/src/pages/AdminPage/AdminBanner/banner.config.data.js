@@ -51,7 +51,7 @@ export default [
                 tag: 'p',
             },
             {
-                content: '郭先生的成长之路',
+                content: '章老师的逗逼之旅',
                 className: 'slider-title',
                 tag: 'h1',
             },

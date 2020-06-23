@@ -83,7 +83,7 @@ function AdminPage1() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onMouseEnter={ () => { handleOnMouseOver(index) } }
-                    onMouseLeave={ handleOnMouseOut }
+                    onMouseLeave={ () => { handleOnMouseOut() } }
                 >
                     <TweenOneGroup
                         enter={ handleMouseGetEnter }
