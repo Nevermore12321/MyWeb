@@ -10,13 +10,16 @@ import React from 'react';
 import { Layout } from 'antd';
 import AdminHeader from '../AdminHeader';
 import AdminBanner from '../AdminBanner'
-// import AdminFooter from '../AdminFooter';
+import AdminPage1 from '../AdminPage1';
+import AdminFooter from '../AdminFooter';
 
 export default function () {
     return (
         <Layout>
             <AdminHeader />
             <AdminBanner />
+            <AdminPage1 />
+            <AdminFooter />
         </Layout>
     )
 }
