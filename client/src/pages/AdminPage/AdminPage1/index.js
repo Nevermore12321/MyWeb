@@ -11,8 +11,17 @@ import { Row, Col } from 'antd';
 import OverPack from 'rc-scroll-anim/lib/ScrollOverPack';
 import RcQueueAnim from 'rc-queue-anim';
 import { TweenOneGroup } from 'rc-tween-one';
+import BlogIcon from '@/assets/icons/blog_admin_page.svg'
+import ManagementIcon from '@/assets/icons/management_admin_page.svg';
+import PlanIcon from '@/assets/icons/plan_admin_page.svg';
 import Page1Data from './page1.config.data';
 import './index.less';
+
+const IconList = [
+    BlogIcon,
+    ManagementIcon,
+    PlanIcon,
+];
 
 //  一共有7个旗袍产生 ， 他们的位置为：
 const pointPos = [
@@ -96,10 +105,10 @@ function AdminPage1() {
                         { isHover && pointChild }
                     </TweenOneGroup>
                     <div className="page1-item-img" style={ { boxShadow: `0 16px 32px ${ item.shadowColor }` } }>
-                        <img src={ item.src } alt="img" />
+                        <img src={ IconList[ index ] } alt="img" />
                     </div>
-                    <div className="page1-item-title">{item.title}</div>
-                    <p>{item.content}</p>
+                    <div className="page1-item-title">{ item.title }</div>
+                    <p>{ item.content }</p>
                 </a>
             </Col>
         );
