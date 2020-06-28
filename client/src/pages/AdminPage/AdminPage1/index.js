@@ -50,7 +50,6 @@ function AdminPage1() {
     //  鼠标 点击 操作
     const handleMouseGetEnter = (e) => {
         const i = e.index;
-        console.log(i);
         const r = (Math.random() * 2) - 1;
         const y = (Math.random() * 10) + 5;
         const delay = Math.round(Math.random() * (i * 50));
@@ -67,10 +66,10 @@ function AdminPage1() {
         ];
     };
 
-    // 测试
     const children = Page1Data.children.map((item, index) => {
         const isHover = hoverNum === index;
-         //  七种 气泡 的不同样式名称，在less文件中定义了
+
+        //  七种 气泡 的不同样式名称，在less文件中定义了
         const pointChild = [
             'point-ring left', 'point-ring point-ring-0 right',
             'point-0', 'point-2', 'point-1', 'point-3', 'point-2',
@@ -92,7 +91,7 @@ function AdminPage1() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onMouseEnter={ () => { handleOnMouseOver(index) } }
-                    onMouseLeave={ () => { handleOnMouseOut() } }
+                    onMouseLeave={ handleOnMouseOut }
                 >
                     <TweenOneGroup
                         enter={ handleMouseGetEnter }
