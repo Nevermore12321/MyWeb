@@ -8,6 +8,7 @@
 
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
 function PreRouteGuard(props) {
@@ -33,3 +34,9 @@ PreRouteGuard.propTypes = {
     location: PropTypes.object,
     pathname: PropTypes.string,
 }
+
+const RouteGuard = connect(
+    (state) => ({ isLogin: state.userInfoReducer }),
+)(PreRouteGuard);
+
+export default RouteGuard;

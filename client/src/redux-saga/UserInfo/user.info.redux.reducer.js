@@ -9,7 +9,7 @@
 //  初始化  user info state
 const userInfoStateInit = {
     isLogin: false,
-    userNmae: '',
+    userName: '',
 };
 
 //  userInfoState 的 reducer 函数
@@ -18,14 +18,14 @@ const userInfoReducer = (state = userInfoStateInit, action) => {
         case 'LOGIN':
             return {
                 isLogin: true,
-                userNmae: action.payload.userName,
+                userName: action.payload.userName,
             };
         case 'CHANGEPROFILE':
             return action.payload;
         case 'ERR':
             return {
                 isLogin: false,
-                userNmae: '',
+                userName: '',
             }
         default:
             return state;

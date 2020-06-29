@@ -1,8 +1,8 @@
 import React from 'react';
-import AdminPage from './pages/AdminPage/Layout'
+import IRouter from './Router/RouterPath';
 
 export default function () {
     return (
-        <AdminPage />
+        <IRouter />
     )
 }

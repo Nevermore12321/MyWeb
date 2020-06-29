@@ -7,11 +7,19 @@
 */
 
 import React from 'react';
+import AdminPage from '@/pages/AdminPage/Layout';
+import LoginPage from '@/pages/LoginPage/Layout';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import RouteGuard from './RouteGuard';
 
 export default function () {
     return (
-        <div>
-            test
-        </div>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/" component={ AdminPage } />
+                <Route path="/login" component={ LoginPage } />
+                <RouteGuard path="/blog" component={ LoginPage } />
+            </Switch>
+        </BrowserRouter>
     )
 }

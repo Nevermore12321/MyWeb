@@ -8,11 +8,12 @@
 
 import React from 'react'
 import { Layout } from 'antd';
+import LoginForm from '../LoginForm';
 
 export default function () {
     return (
         <Layout>
-            test
+            <LoginForm />
         </Layout>
     )
 }
