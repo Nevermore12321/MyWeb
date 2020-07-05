@@ -56,7 +56,10 @@
 //     return (
 //         <div>
 //             <p>详情: { match.params.course }</p>
-//             <Button type="primary" onClick={ () => history.push({ pathname: '/', state: { foo: 'bar' } }) }>返回首页</Button>
+//             <Button
+//             type="primary"
+//             onClick={
+//             () => history.push({ pathname: '/', state: { foo: 'bar' } }) }>返回首页</Button>
 //         </div>
 //     )
 // }
@@ -88,7 +91,12 @@
 //                 (newProps) => (
 //                     isLogin
 //                         ? <Component { ...newProps } />
-//                         : (<Redirect to={ { pathname: '/login', state: { from: props.location.pathname } } } />)
+//                         : (<Redirect
+//                         to={
+//                         {
+//                             pathname: '/login', state: { from: props.location.pathname } }
+//                         }
+//                         />)
 //                 )
 //         }
 //         />
