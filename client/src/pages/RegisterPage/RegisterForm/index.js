@@ -13,16 +13,20 @@ import Step2UserInfo from './Step2.Information';
 import Step3Success from './Step3.Success';
 
 function RegisterForm(props) {
-    const { current, handleChangecaptchaStatus } = props;
+    const {
+        current,
+        handleChangeCaptchaStatus,
+        handleChangeRegisterStatus,
+    } = props;
 
     switch (current) {
         case 0:
             return (
-                <Step1VerifyEmail handleChangecaptchaStatus={ handleChangecaptchaStatus } />
+                <Step1VerifyEmail handleChangeCaptchaStatus={ handleChangeCaptchaStatus } />
             );
         case 1:
             return (
-                <Step2UserInfo />
+                <Step2UserInfo handleChangeRegisterStatus={ handleChangeRegisterStatus } />
             );
         case 2:
             return (
@@ -39,7 +43,8 @@ function RegisterForm(props) {
 
 RegisterForm.propTypes = {
     current: PropTypes.number,
-    handleChangecaptchaStatus: PropTypes.func,
+    handleChangeCaptchaStatus: PropTypes.func,
+    handleChangeRegisterStatus: PropTypes.func,
 }
 
 export default RegisterForm;

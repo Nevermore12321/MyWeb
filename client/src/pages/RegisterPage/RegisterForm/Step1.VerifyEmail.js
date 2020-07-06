@@ -61,12 +61,12 @@ function SendEmailForm(props) {
                 name="email"
                 rules={ [
                     {
-                        required: true,
-                        message: 'Please input your Email!',
+                        type: 'email',
+                        message: 'The input is not valid E-mail!',
                     },
                     {
-                        message: 'The format of the email is incorrect',
-                        pattern: /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/,
+                        required: true,
+                        message: 'Please input your Email!',
                     },
                 ] }
             >
@@ -95,7 +95,7 @@ function VerifyCaptchaForm(props) {
 
     const [ , forceUpdate ] = useState();
 
-    const { verifyCode, handleChangecaptchaStatus } = props;
+    const { verifyCode, handleChangeCaptchaStatus } = props;
 
     useEffect(() => {
         forceUpdate({});
@@ -104,9 +104,9 @@ function VerifyCaptchaForm(props) {
     const onHandleVerifyCode = (value) => {
         // todo 验证码是否验证成功
         // if (value.verifyCode === verifyCode) {
-        console.log(typeof handleChangecaptchaStatus)
+        console.log(typeof handleChangeCaptchaStatus)
         if (value.verifyCode === 'aaaaaa') {
-            handleChangecaptchaStatus(true);
+            handleChangeCaptchaStatus(true);
         } else {
             message.error('Incorrect Verification Code');
         }
@@ -153,7 +153,7 @@ function VerifyCaptchaForm(props) {
 
 VerifyCaptchaForm.propTypes = {
     verifyCode: PropTypes.string,
-    handleChangecaptchaStatus: PropTypes.func,
+    handleChangeCaptchaStatus: PropTypes.func,
 }
 
 function Step1VerifyEmail(props) {
@@ -167,7 +167,7 @@ function Step1VerifyEmail(props) {
     const [ verifyCode, setVerifyCode ] = useState('');
 
     //  从 父组件中拿到 修改验证码是否验证成功的 函数
-    const { handleChangecaptchaStatus } = props;
+    const { handleChangeCaptchaStatus } = props;
 
     useEffect(() => {
         forceUpdate({});
@@ -203,14 +203,14 @@ function Step1VerifyEmail(props) {
             />
             <VerifyCaptchaForm
                 verifyCode={ verifyCode }
-                handleChangecaptchaStatus={ handleChangecaptchaStatus }
+                handleChangeCaptchaStatus={ handleChangeCaptchaStatus }
             />
         </div>
     )
 }
 
 Step1VerifyEmail.propTypes = {
-    handleChangecaptchaStatus: PropTypes.func,
+    handleChangeCaptchaStatus: PropTypes.func,
 }
 
 export default Step1VerifyEmail;

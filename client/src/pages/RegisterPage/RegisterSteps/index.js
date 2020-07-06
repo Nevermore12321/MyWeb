@@ -17,6 +17,8 @@ function RegisterSteps(props) {
     const [ current, setCurrent ] = useState(0);
     //  第一步 的邮箱验证是否正确
     const [ captchaStatus, setCaptchaStatus ] = useState(false);
+    //  第二步 的 后台注册有没有成功
+    const [ registerStatus, setRegisterStatus ] = useState(false);
     const { children } = props;
     //  steps 的长度
     const stepsLength = 3;
@@ -26,8 +28,13 @@ function RegisterSteps(props) {
     };
 
     //  用于修改  captchaStatus 状态的 函数
-    const handleChangecaptchaStatus = (value) => {
+    const handleChangeCaptchaStatus = (value) => {
         setCaptchaStatus(value);
+    }
+
+    //  用于修改  registerStatus 状态的 函数
+    const handleChangeRegisterStatus = (value) => {
+        setRegisterStatus(value);
     }
 
     //  Previous 按钮的操作
@@ -47,7 +54,9 @@ function RegisterSteps(props) {
                 && React.cloneElement(children, {
                     current,
                     captchaStatus,
-                    handleChangecaptchaStatus,
+                    handleChangeCaptchaStatus,
+                    registerStatus,
+                    handleChangeRegisterStatus,
                 }) }
             </div>
             <div className="steps-action">
