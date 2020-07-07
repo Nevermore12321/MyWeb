@@ -6,17 +6,26 @@
  * @time: 2020/6/29 15:23
 */
 
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
-    Form, Input, Button, Checkbox,
+    Form, Input, Button, Checkbox, Row, Col,
 } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import Captcha from 'react-captcha-code';
 import './index.less';
 
 export default function () {
     const onFinish = () => {
         console.log('test');
     }
+
+     //  用于存放 验证码
+    const [ captchaCode, setCaptchaCode ] = useState(null);
+
+    const handleChangeCaptcha = useCallback((captcha) => {
+        console.log('captcha:', captcha);
+        setCaptchaCode(captcha);
+    }, []);
 
     return (
         <div className="login_form">
@@ -53,6 +62,43 @@ export default function () {
                         type="password"
                         placeholder="Password"
                     />
+                </Form.Item>
+
+                <Form.Item extra="We must make sure that your are a human.">
+                    <Row gutter={ 8 }>
+                        <Col span={ 12 }>
+                            <Form.Item
+                                name="captChaInput"
+                                noStyle
+                                hasFeedback
+                                rules={ [
+                                    {
+                                        required: true,
+                                        message: 'Please input the captcha you got!',
+                                    },
+                                    () => ({
+                                        validator(rule, value) {
+                                            if (!value || captchaCode === value) {
+                                                return Promise.resolve();
+                                            }
+
+                                            return Promise.reject(new Error('The captcha that you entered do not match!'));
+                                        },
+                                    }),
+                                ] }
+                            >
+                                <Input placeholder="Captcha" />
+                            </Form.Item>
+                        </Col>
+                        <Col span={ 12 }>
+                            <Captcha
+                                charNum={ 4 }
+                                onChange={ handleChangeCaptcha }
+                                height={ 45 }
+                                width={ 160 }
+                            />
+                        </Col>
+                    </Row>
                 </Form.Item>
                 <Form.Item>
                     <Form.Item name="remember" valuePropName="checked" noStyle>

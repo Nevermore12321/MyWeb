@@ -8,8 +8,9 @@
 
 import React from 'react';
 import {
-    Form, Input,
+    Form, Input, Select, DatePicker, Checkbox, Button, message,
 } from 'antd';
+import PropTypes from 'prop-types';
 
 const formItemLayout = {
     labelCol: {
@@ -25,99 +26,140 @@ const formItemLayout = {
             span: 24,
         },
         sm: {
-            span: 16,
+            span: 0,
         },
     },
 };
 
-const tailFormItemLayout = {
-    wrapperCol: {
-        xs: {
-            span: 24,
-            offset: 0,
-        },
-        sm: {
-            span: 16,
-            offset: 8,
-        },
-    },
-};
-
-function Step2UserInfo() {
+function Step2UserInfo(props) {
     const [ form ] = Form.useForm();
 
+    //  父组件 修改 registerStatus 的 函数
+    const { handleChangeRegisterStatus } = props;
+
     const onhandleSubmitRegister = () => {
-        console.log('test');
+        // todo 像后端 注册用户，注册成功 注册失败的情况
+        const myResponse = 'success';
+        if (myResponse === 'success') {
+            handleChangeRegisterStatus(true);
+        } else {
+            message.error('Register Failed!');
+        }
     }
 
     return (
-        <Form
-            { ...formItemLayout }
-            name="register"
-            form={ form }
-            onFinish={ onhandleSubmitRegister }
-            scrollToFirstError
-        >
-            <Form.Item
-                name="userName"
-                label="Username"
-                rules={ [
-                    {
-                        pattern: /^[a-zA-Z0-9_-]{4,16}$/,
-                        message: 'Please input a 4-16 characters username!',
-                    },
-                    {
-                        required: true,
-                        message: 'Please input your Username!',
-                    },
-                ] }
+        <div className="step-common">
+            <Form
+                { ...formItemLayout }
+                name="register"
+                form={ form }
+                onFinish={ onhandleSubmitRegister }
+                scrollToFirstError
             >
-                <Input />
-            </Form.Item>
-            <Form.Item
-                name="password"
-                label="Password"
-                rules={ [
-                    {
-                        required: true,
-                        message: 'Please input your password!',
-                    },
-                    {
-                        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,10}$/,
-                        message: 'Password must contain at least one uppercase letter, one lowercase letter and one number.',
-                    },
-                ] }
-                hasFeedback
-            >
-                <Input.Password />
-            </Form.Item>
-
-            <Form.Item
-                name="confirm"
-                label="Confirm Password"
-                dependencies={ [ 'password' ] }
-                hasFeedback
-                rules={ [
-                    {
-                        required: true,
-                        message: 'Please confirm your password!',
-                    },
-                    ({ getFieldValue }) => ({
-                        validator(rule, value) {
-                            if (!value || getFieldValue('password') === value) {
-                                return Promise.resolve();
-                            }
-
-                            return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                <Form.Item
+                    name="userName"
+                    label="Username"
+                    rules={ [
+                        {
+                            pattern: /^[a-zA-Z0-9_-]{4,16}$/,
+                            message: 'Please input a 4-16 characters username!',
                         },
-                    }),
-                ] }
-            >
-                <Input.Password />
-            </Form.Item>
+                        {
+                            required: true,
+                            message: 'Please input your Username!',
+                        },
+                    ] }
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    label="Password"
+                    rules={ [
+                        {
+                            required: true,
+                            message: 'Please input your password!',
+                        },
+                        {
+                            pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,10}$/,
+                            message: 'Password must contain at least one uppercase letter, one lowercase letter and one number.',
+                        },
+                    ] }
+                    hasFeedback
+                >
+                    <Input.Password />
+                </Form.Item>
 
-        </Form>
+                <Form.Item
+                    name="confirm"
+                    label="Confirm Pwd"
+                    dependencies={ [ 'password' ] }
+                    hasFeedback
+                    rules={ [
+                        {
+                            required: true,
+                            message: 'Please confirm your password!',
+                        },
+                        ({ getFieldValue }) => ({
+                            validator(rule, value) {
+                                if (!value || getFieldValue('password') === value) {
+                                    return Promise.resolve();
+                                }
+
+                                return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                            },
+                        }),
+                    ] }
+                >
+                    <Input.Password />
+                </Form.Item>
+                <Form.Item
+                    name="gender"
+                    label="Gender"
+                    rules={ [
+                        {
+                            required: true,
+                            message: 'Please slect your gender.',
+                        },
+                    ] }
+                >
+                    <Select>
+                        <Select.Option value="male">Male</Select.Option>
+                        <Select.Option value="female">Female</Select.Option>
+                    </Select>
+                </Form.Item>
+                <Form.Item
+                    name="birthday"
+                    label="Birthday"
+                >
+                    <DatePicker />
+                </Form.Item>
+
+                <Form.Item
+                    name="agreement"
+                    valuePropName="checked"
+                    rules={ [
+                        { validator: (_, value) => (value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement'))) },
+                    ] }
+                >
+                    <Checkbox>
+                        I have read the <a href="/">agreement</a>
+                    </Checkbox>
+                </Form.Item>
+
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                        Register
+                    </Button>
+                </Form.Item>
+
+            </Form>
+        </div>
     )
+}
+
+Step2UserInfo.propTypes = {
+    handleChangeRegisterStatus: PropTypes.func,
 }
 
 export default Step2UserInfo;

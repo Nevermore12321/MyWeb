@@ -61,7 +61,15 @@ function RegisterSteps(props) {
             </div>
             <div className="steps-action">
                 { current < stepsLength - 1 && (
-                    <Button type="primary" onClick={ () => next() } disabled={ !captchaStatus }>
+                    <Button
+                        type="primary"
+                        onClick={ () => next() }
+                        disabled={
+                            current === 0
+                            ? !captchaStatus
+                            : !registerStatus
+                        }
+                    >
                         Next
                     </Button>
                 ) }

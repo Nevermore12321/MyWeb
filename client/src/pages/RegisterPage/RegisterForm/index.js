@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import Step1VerifyEmail from './Step1.VerifyEmail';
 import Step2UserInfo from './Step2.Information';
 import Step3Success from './Step3.Success';
+import './index.less';
 
 function RegisterForm(props) {
     const {

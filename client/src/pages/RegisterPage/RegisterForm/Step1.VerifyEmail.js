@@ -11,7 +11,6 @@ import {
     Form, Input, Button, message,
 } from 'antd';
 import { MailOutlined, CheckCircleOutlined } from '@ant-design/icons';
-import './index.less';
 import PropTypes from 'prop-types';
 
 function SendEmailForm(props) {
@@ -104,7 +103,6 @@ function VerifyCaptchaForm(props) {
     const onHandleVerifyCode = (value) => {
         // todo 验证码是否验证成功
         // if (value.verifyCode === verifyCode) {
-        console.log(typeof handleChangeCaptchaStatus)
         if (value.verifyCode === 'aaaaaa') {
             handleChangeCaptchaStatus(true);
         } else {
