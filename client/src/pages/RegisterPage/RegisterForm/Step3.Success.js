@@ -7,12 +7,18 @@
 */
 
 import React from 'react';
+import { Result } from 'antd';
 
 function Step3Success() {
     return (
-        <div>
-            Step3Success
+        <div className="step-common">
+            <Result
+                status="success"
+                title="Successfully Registered NeverMore's Site!"
+                subTitle="You can click the Done button to back to the home page!"
+            />
         </div>
+
     )
 }
 

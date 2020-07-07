@@ -82,7 +82,7 @@ function Step2UserInfo(props) {
                         },
                         {
                             pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,10}$/,
-                            message: 'Password must contain at least one uppercase letter, one lowercase letter and one number.',
+                            message: 'Password must have 6-10 characters and contain at least one uppercase letter, one lowercase letter and one number.',
                         },
                     ] }
                     hasFeedback

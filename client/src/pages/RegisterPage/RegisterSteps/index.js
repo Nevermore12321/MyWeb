@@ -7,7 +7,8 @@
 */
 
 import React, { useState } from 'react';
-import { Steps, message, Button } from 'antd';
+import { Steps, Button } from 'antd';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './index.less';
 
@@ -19,7 +20,8 @@ function RegisterSteps(props) {
     const [ captchaStatus, setCaptchaStatus ] = useState(false);
     //  第二步 的 后台注册有没有成功
     const [ registerStatus, setRegisterStatus ] = useState(false);
-    const { children } = props;
+    const { children, history } = props;
+    console.log('history: ', history);
     //  steps 的长度
     const stepsLength = 3;
     //  Next 按钮的操作
@@ -74,11 +76,11 @@ function RegisterSteps(props) {
                     </Button>
                 ) }
                 { current === stepsLength - 1 && (
-                    <Button type="primary" onClick={ () => message.success('Processing complete!') }>
+                    <Button type="primary" onClick={ () => history.push({ pathname: '/' }) }>
                         Done
                     </Button>
                 ) }
-                {current > 0 && (
+                {current === 1 && (
                     <Button style={ { margin: '0 8px' } } onClick={ () => prev() }>
                         Previous
                     </Button>
@@ -90,6 +92,7 @@ function RegisterSteps(props) {
 
 RegisterSteps.propTypes = {
     children: PropTypes.object,
+    history: PropTypes.object,
 }
 
-export default RegisterSteps;
+export default withRouter(RegisterSteps);
