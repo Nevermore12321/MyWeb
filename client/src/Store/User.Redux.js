@@ -14,9 +14,9 @@ const Actions = {
 };
 
 const UserState = {
-    name: 'shaohe',
-    age: 18,
-    address: 'Anze',
+    name: '',
+    age: 0,
+    address: '',
 };
 
 const UserReducer = (state = UserState, action) => {

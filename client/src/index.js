@@ -5,7 +5,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 import userInfoReducer from './redux-saga/UserInfo/user.info.redux.reducer';
-import UserInfoSaga from './redux-saga/UserInfo/user.info.saga';
+import UserSaga from './redux-saga/UserInfo/user.info.saga';
 import App from './App';
 
 //  combine reducer
@@ -13,14 +13,17 @@ const allReducers = combineReducers([
     userInfoReducer,
 ]);
 
+//  combine all saga take func (合并saga监听函数)
+const allSagas = [ ...UserSaga ]
+
 //  create saga middleware
 const sagaMid = createSagaMiddleware();
 
 //  create redux store
 const store = createStore(allReducers, applyMiddleware(sagaMid, logger));
 
-//  start saga
-sagaMid.run(UserInfoSaga);
+//  start saga(启动所有saga)
+allSagas.map((sagaItem) => sagaMid.run(sagaItem))
 
 ReactDom.render(
     <Provider store={ store }>

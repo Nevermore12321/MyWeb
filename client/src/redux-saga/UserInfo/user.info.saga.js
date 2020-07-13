@@ -37,9 +37,39 @@ function* loginSagaOperation() {
 }
 
 //  saga 的监听函数
-function* UserInfoSaga() {
+function* LoginSaga() {
     //  takeEvery 监听函数，也就是 监听 saga action 为 login_request，当有dispatch 这个action时，触发 login 处理函数
     yield takeEvery('login_action', loginSagaOperation);
 }
 
-export default UserInfoSaga;
+const modifyInfoOperation = () => {
+    console.log('test');
+    return {
+        isLogin: true,
+        userNmae: 'Jack',
+    }
+}
+
+function* ModifyInfoSagaOperation() {
+    try {
+        const res = yield call(modifyInfoOperation);
+        //  这里是 saga 处理完后，通过 put 将触发原本 redux 的 action 去修改 state
+        yield put({
+            type: 'LOGIN',
+            payload: res,
+        });
+    } catch (e) {
+        yield put({
+            type: 'ERR',
+            payload: e.message,
+        });
+    }
+}
+
+function* UserInfoSaga() {
+    yield takeEvery('modify_info_action', ModifyInfoSagaOperation);
+}
+
+const UserSaga = [ LoginSaga, UserInfoSaga ]
+
+export default UserSaga;
