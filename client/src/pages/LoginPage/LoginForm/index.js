@@ -12,10 +12,12 @@ import {
 } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import Captcha from 'react-captcha-code';
+import { axiosGet } from '@/utils/requests.axios';
 import './index.less';
 
 export default function () {
     const onFinish = () => {
+        axiosGet();
         console.log('test');
     }
 
