@@ -7,14 +7,21 @@
 */
 
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { axiosGet } from '@/utils/requests.axios';
 
 //  saga 捕捉后 执行的 操作
 const loginOperation = () => {
-    console.log('test');
-    return {
-        isLogin: true,
-        userNmae: 'Jack',
-    }
+    console.log('test saga')
+    return new Promise((resolve, reject) => {
+        axiosGet('/hello').then((res) => {
+            console.log(res.status);
+            console.log(res.data);
+            resolve(res.data);
+        }).catch((err) => {
+            console.log(err)
+            reject(err);
+        })
+    })
 }
 
 //  捕捉后 调用 loginOperation 函数并且 dispatch 给 redux 修改 state的值
@@ -22,7 +29,8 @@ function* loginSagaOperation() {
     try {
         //  这里就是 先经过 saga 处理的 操作，通过 call 调用 处理api
         const res = yield call(loginOperation);
-
+        //  如果成功返回，就登陆成功，重定向页面
+        window.location.href = '/';
         //  这里是 saga 处理完后，通过 put 将触发原本 redux 的 action 去修改 state
         yield put({
             type: 'LOGIN',

@@ -10,7 +10,6 @@
 const userInfoStateInit = {
     isLogin: false,
     userName: '',
-    token: '',
 };
 
 //  userInfoState 的 reducer 函数
@@ -41,7 +40,7 @@ const loginAction = () => (
     {
         type: 'login_action',
     }
-)
+);
 
 //  modifyInfoAction 修改用户信息
 const modifyInfoAction = () => (

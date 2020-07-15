@@ -23,7 +23,7 @@ function axiosGet(url, params) {
         }, (err) => {
             Modal.error({
                 title: 'Request Error!',
-                content: err.message,
+                content: err,
             })
             reject(err);
         })
@@ -43,7 +43,7 @@ function axiosPost(url, data) {
         }, (err) => {
             Modal.error({
                 title: 'Request Error!',
-                content: err.message,
+                content: err,
             })
             reject(err);
         })

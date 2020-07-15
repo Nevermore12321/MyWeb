@@ -7,7 +7,8 @@
 */
 
 import axios from 'axios';
-import React, { ReactDOM } from 'react';
+import React from 'react';
+import ReactDom from 'react-dom';
 import { Spin } from 'antd';
 
 //  服务器站点
@@ -15,7 +16,7 @@ axios.defaults.baseURL = '/api'
 //  是否跨站点
 axios.defaults.withCredentials = true
 //  设置 请求头
-axios.defaults.headers.post[ 'Content-Type' ] = 'application/json';
+axios.defaults.headers[ 'Content-Type' ] = 'application/json';
 
 //  请求计数器，判断当前有多少个请求
 let requestCounter = 0;
@@ -28,16 +29,16 @@ function showLoading() {
         const dom = document.createElement('div');
         dom.setAttribute('id', 'loading');
         document.body.appendChild(dom);
-        ReactDOM.render(<Spin tip="Loading ..." size="large" />, dom)
-    } else {
-        requestCounter += 1;
+        ReactDom.render(<Spin tip="Loading ..." size="large" />, dom)
     }
+    requestCounter += 1;
 }
 
 //  隐藏 loading 的函数， 首先收到response后，首先要把这个请求去掉，然后判断 requestCounter 是否为0
 //  如果 requestCounter 为0， 表示已经没有了请求，需要隐藏 loading
 function hideLoading() {
     requestCounter -= 1;
+
     if (requestCounter === 0) {
         document.body.removeChild(document.getElementById('loading'))
     }
@@ -67,8 +68,8 @@ axios.interceptors.request.use((reqConfig) => {
 axios.interceptors.response.use((resConfig) => {
     //  隐藏loading组件, 如果requestCounter 不是0，就 减去1
     hideLoading();
-
-    return resConfig
+    console.log('before response')
+    return resConfig;
 }, (error) => {
     const newError = error;
 

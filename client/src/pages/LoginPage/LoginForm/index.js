@@ -12,13 +12,18 @@ import {
 } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import Captcha from 'react-captcha-code';
-import { axiosGet } from '@/utils/requests.axios';
+import { loginAction } from '@/redux-saga/UserInfo/user.info.redux.reducer';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import './index.less';
+import PropTypes from 'prop-types';
 
-export default function () {
+function PreLoginForm(props) {
+    //  取出 redux 的 dispatch 函数
+
     const onFinish = () => {
-        axiosGet();
         console.log('test');
+        props.loginAction();
     }
 
      //  用于存放 验证码
@@ -122,3 +127,14 @@ export default function () {
         </div>
     );
 }
+
+PreLoginForm.propTypes = {
+    loginAction: PropTypes.func,
+}
+
+const LoginForm = withRouter(connect(
+    (state) => ({ isLogin: state.isLogin }),
+    { loginAction },
+)(PreLoginForm));
+
+export default LoginForm;

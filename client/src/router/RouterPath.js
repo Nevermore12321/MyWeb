@@ -10,6 +10,7 @@ import React from 'react';
 import AdminPage from '@/pages/AdminPage/Layout';
 import LoginPage from '@/pages/LoginPage/Layout';
 import RegisterPage from '@/pages/RegisterPage/Layout';
+import BlogHomePage from '@/pages/BlogHomePage/Layout';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import RouteGuard from './RouteGuard';
 
@@ -20,7 +21,7 @@ export default function () {
                 <Route exact path="/" component={ AdminPage } />
                 <Route path="/login" component={ LoginPage } />
                 <Route path="/register" component={ RegisterPage } />
-                <RouteGuard path="/blog" component={ LoginPage } />
+                <RouteGuard path="/blog" component={ BlogHomePage } />
             </Switch>
         </BrowserRouter>
     )
