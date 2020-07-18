@@ -1,0 +1,5 @@
+config/*.js
+dist/*.js
+build/*
+src/assets/*.svg
+node_modules/*.js
