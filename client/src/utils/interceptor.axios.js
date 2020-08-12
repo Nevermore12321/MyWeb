@@ -11,12 +11,21 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { Spin } from 'antd';
 
+//  先创建一个用来获取 csrf token 的 axios 实例
+const csrfAxios = axios.create({
+    baseURL: 'http://localhost:1234/v1',
+    withCredentials: true,
+})
+
+//  再次创建 用来发送 普通请求的 axios 实例
+const Axios = axios.create()
+
 //  服务器站点
-axios.defaults.baseURL = '/api'
+Axios.defaults.baseURL = 'http://localhost:1234/v1'
 //  是否跨站点
-axios.defaults.withCredentials = true
+Axios.defaults.withCredentials = true
 //  设置 请求头
-axios.defaults.headers[ 'Content-Type' ] = 'application/json';
+Axios.defaults.headers[ 'Content-Type' ] = 'application/json';
 
 //  请求计数器，判断当前有多少个请求
 let requestCounter = 0;
@@ -44,11 +53,36 @@ function hideLoading() {
     }
 }
 
+//  全局 的 csrf Token 值
+let globalCsrfToken = window.localStorage.getItem('csrfToken');
+
+//  在每个请求前，需要判断 localStorage 中有没有 csrfToken ，用来验证 csrf Token
+//  如果有，则直接在 header 中添加X-Csrf-Token，如果没有，则需要先获取，/getCSRF
+async function getCsrf() {
+     await csrfAxios.get('/getCSRF').then((res) => {
+        const csrfTokenTmp = res.headers[ 'x-csrf-token' ];
+        window.localStorage.setItem('csrfToken', csrfTokenTmp);
+        globalCsrfToken = csrfTokenTmp;
+        Axios.defaults.headers[ 'X-Csrf-Token' ] = csrfTokenTmp;
+    }).catch((err) => (Promise.reject(err)));
+}
+
+function test() {
+    getCsrf()
+}
+
+if (globalCsrfToken) {
+    Axios.defaults.headers[ 'X-Csrf-Token' ] = globalCsrfToken;
+} else {
+    test()
+}
+
 //  发送请求前，做一些预处理，添加token，加载 loading
-axios.interceptors.request.use((reqConfig) => {
-    //  从 localStorage 中拿到 token
+Axios.interceptors.request.use((reqConfig) => {
+    //  从 localStorage 中先拿到 csrf token ，如果没有，就先获取 csrf token， 接口为 /v1/admin/getCSRF
     const { token } = window.localStorage;
     const newReqConfig = reqConfig;
+
     if (token) {
         newReqConfig.headers.Authorization = `token ${ token }`;
     }
@@ -65,7 +99,7 @@ axios.interceptors.request.use((reqConfig) => {
 });
 
 //  收到响应后，在处理前做一些预处理，无论是否出错，都取消 loading
-axios.interceptors.response.use((resConfig) => {
+Axios.interceptors.response.use((resConfig) => {
     //  隐藏loading组件, 如果requestCounter 不是0，就 减去1
     hideLoading();
     console.log('before response')
@@ -79,40 +113,40 @@ axios.interceptors.response.use((resConfig) => {
     if (error && error.response) {
         switch (error.response.status) {
             case 400:
-                newError.message = '错误请求'
+                newError.message = '400 错误请求'
                 break;
             case 401:
-                newError.message = '未授权，请重新登录'
+                newError.message = '401 未授权，请重新登录'
                 break;
             case 403:
-                newError.message = '拒绝访问'
+                newError.message = '403 拒绝访问'
                 break;
             case 404:
-                newError.message = '请求错误,未找到该资源'
+                newError.message = '404 请求错误,未找到该资源'
                 break;
             case 405:
-                newError.message = '请求方法未允许'
+                newError.message = '405 请求方法未允许'
                 break;
             case 408:
-                newError.message = '请求超时'
+                newError.message = '408 请求超时'
                 break;
             case 500:
-                newError.message = '服务器端出错'
+                newError.message = '500 服务器端出错'
                 break;
             case 501:
-                newError.message = '网络未实现'
+                newError.message = '501 网络未实现'
                 break;
             case 502:
-                newError.message = '网络错误'
+                newError.message = '502 网络错误'
                 break;
             case 503:
-                newError.message = '服务不可用'
+                newError.message = '503 服务不可用'
                 break;
             case 504:
-                newError.message = '网络超时'
+                newError.message = '504 网络超时'
                 break;
             case 505:
-                newError.message = 'http版本不支持该请求'
+                newError.message = '505 http版本不支持该请求'
                 break;
             default:
                 newError.message = `连接错误${ error.response.status }`
@@ -123,4 +157,4 @@ axios.interceptors.response.use((resConfig) => {
     return Promise.reject(newError.message)
 });
 
-export default axios;
+export default Axios;

@@ -44,6 +44,7 @@ function axiosPost(url, data) {
             Modal.error({
                 title: 'Request Error!',
                 content: err,
+
             })
             reject(err);
         })

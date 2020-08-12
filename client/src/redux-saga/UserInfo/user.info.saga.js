@@ -13,7 +13,7 @@ import { axiosGet } from '@/utils/requests.axios';
 const loginOperation = () => {
     console.log('test saga')
     return new Promise((resolve, reject) => {
-        axiosGet('/hello').then((res) => {
+        axiosGet('/admin/login').then((res) => {
             console.log(res.status);
             console.log(res.data);
             resolve(res.data);

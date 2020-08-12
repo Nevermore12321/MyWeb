@@ -10,12 +10,12 @@ const proxy = require('http-proxy-middleware');
 
 module.exports = function (app) {
     app.use(
-        proxy.createProxyMiddleware('/api', {
-            target: 'http://localhost:6789',
+        proxy.createProxyMiddleware('/v1', {
+            target: 'http://localhost:1234',
             secure: false,
             changeOrigin: true,
             pathRewrite: {
-                '^/api': '',
+                '^/v1': '/v1',
             },
         }),
     );
