@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 
 function PreRouteGuard(props) {
     const { component: SrcComponent, isLogin, ...otherProps } = props;
-
+    console.log(isLogin)
     return (
         <Route
             { ...otherProps }
@@ -35,8 +35,6 @@ PreRouteGuard.propTypes = {
     pathname: PropTypes.string,
 }
 
-const RouteGuard = connect(
-    (state) => ({ isLogin: state.userInfoReducer }),
+export default connect(
+    (state) => ({ isLogin: state.userLoginStatus.isLogin }),
 )(PreRouteGuard);
-
-export default RouteGuard;

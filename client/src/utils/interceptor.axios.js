@@ -55,6 +55,7 @@ function hideLoading() {
 
 //  全局 的 csrf Token 值
 let globalCsrfToken = window.localStorage.getItem('csrfToken');
+console.log('global csrf: ', globalCsrfToken)
 
 //  在每个请求前，需要判断 localStorage 中有没有 csrfToken ，用来验证 csrf Token
 //  如果有，则直接在 header 中添加X-Csrf-Token，如果没有，则需要先获取，/getCSRF
@@ -99,12 +100,13 @@ Axios.interceptors.request.use((reqConfig) => {
 });
 
 //  收到响应后，在处理前做一些预处理，无论是否出错，都取消 loading
-Axios.interceptors.response.use((resConfig) => {
+    Axios.interceptors.response.use((resConfig) => {
     //  隐藏loading组件, 如果requestCounter 不是0，就 减去1
     hideLoading();
     console.log('before response')
     return resConfig;
 }, (error) => {
+    console.log(error.response)
     const newError = error;
 
     //  隐藏loading组件, 如果requestCounter 不是0，就 减去1
@@ -113,40 +115,41 @@ Axios.interceptors.response.use((resConfig) => {
     if (error && error.response) {
         switch (error.response.status) {
             case 400:
-                newError.message = '400 错误请求'
+                newError.message = `400 错误请求。原因: ${ error.response.data.message }`
                 break;
             case 401:
-                newError.message = '401 未授权，请重新登录'
+                // newError.message = '401 未授权，请重新登录'
+                newError.message = `401 未授权，请重新登录。原因: ${ error.response.data.message }`
                 break;
             case 403:
-                newError.message = '403 拒绝访问'
+                newError.message = `403 拒绝访问。原因: ${ error.response.data.message }`
                 break;
             case 404:
-                newError.message = '404 请求错误,未找到该资源'
+                newError.message = `404 请求错误,未找到该资源。原因: ${ error.response.data.message }`
                 break;
             case 405:
-                newError.message = '405 请求方法未允许'
+                newError.message = `405 请求方法未允许。原因: ${ error.response.data.message }`
                 break;
             case 408:
-                newError.message = '408 请求超时'
+                newError.message = `408 请求超时。原因: ${ error.response.data.message }`
                 break;
             case 500:
-                newError.message = '500 服务器端出错'
+                newError.message = `500 服务器端出错。原因: ${ error.response.data.message }`
                 break;
             case 501:
-                newError.message = '501 网络未实现'
+                newError.message = `501 网络未实现。原因: ${ error.response.data.message }`
                 break;
             case 502:
-                newError.message = '502 网络错误'
+                newError.message = `502 网络错误。原因: ${ error.response.data.message }`
                 break;
             case 503:
-                newError.message = '503 服务不可用'
+                newError.message = `503 服务不可用。原因: ${ error.response.data.message }`
                 break;
             case 504:
-                newError.message = '504 网络超时'
+                newError.message = `504 网络超时。原因: ${ error.response.data.message }`
                 break;
             case 505:
-                newError.message = '505 http版本不支持该请求'
+                newError.message = `505 http版本不支持该请求。原因: ${ error.response.data.message }`
                 break;
             default:
                 newError.message = `连接错误${ error.response.status }`

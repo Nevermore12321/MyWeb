@@ -18,7 +18,7 @@ const userInfoReducer = (state = userInfoStateInit, action) => {
         case 'LOGIN':
             return {
                 isLogin: true,
-                ...action.payload,
+                userName: action.username,
             };
         case 'CHANGEPROFILE':
             return action.payload;
@@ -36,9 +36,10 @@ export default userInfoReducer;
 
 //  redux-saga 的 action 操作， 也就是在 redux 修改state前，saga 做的操作
 //  loginAction 登录操作
-const loginAction = () => (
+const loginAction = (data) => (
     {
         type: 'login_action',
+        payload: data,
     }
 );
 

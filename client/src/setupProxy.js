@@ -11,7 +11,7 @@ const proxy = require('http-proxy-middleware');
 module.exports = function (app) {
     app.use(
         proxy.createProxyMiddleware('/v1', {
-            target: 'http://localhost:1234',
+            target: 'http://127.0.0.1:1234',
             secure: false,
             changeOrigin: true,
             pathRewrite: {

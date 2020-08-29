@@ -21,9 +21,13 @@ import PropTypes from 'prop-types';
 function PreLoginForm(props) {
     //  取出 redux 的 dispatch 函数
 
-    const onFinish = () => {
-        console.log('test');
-        props.loginAction();
+    const onFinish = (values) => {
+        console.log(values);
+        const data = {
+            username: values.username,
+            password: values.password,
+        }
+        props.loginAction(data);
     }
 
      //  用于存放 验证码
@@ -133,7 +137,7 @@ PreLoginForm.propTypes = {
 }
 
 const LoginForm = withRouter(connect(
-    (state) => ({ isLogin: state.isLogin }),
+    (state) => ( { isLogin: state.userLoginStatus.isLogin } ),
     { loginAction },
 )(PreLoginForm));
 
