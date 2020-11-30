@@ -7,7 +7,10 @@
 */
 
 import React from 'react';
-import { Row, Col, Tooltip } from 'antd';
+import {
+    Row, Col, Tooltip, Button,
+} from 'antd';
+import { Link } from 'react-router-dom';
 import LinuxIcon from '@/assets/icons/linux_32px.svg';
 import AlgorithmIcon from '@/assets/icons/algorithms_32px.svg';
 import CloudIcon from '@/assets/icons/cloud_32px.svg';
@@ -76,6 +79,9 @@ export default function (props) {
             <Row className="nav">
                 { MenuItem }
             </Row>
+            <Link to="/login">
+                <Button type="primary" className="login-button">登录</Button>
+            </Link>
         </div>
     )
 }

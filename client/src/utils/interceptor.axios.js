@@ -100,7 +100,7 @@ Axios.interceptors.request.use((reqConfig) => {
 });
 
 //  收到响应后，在处理前做一些预处理，无论是否出错，都取消 loading
-    Axios.interceptors.response.use((resConfig) => {
+Axios.interceptors.response.use((resConfig) => {
     //  隐藏loading组件, 如果requestCounter 不是0，就 减去1
     hideLoading();
     console.log('before response')

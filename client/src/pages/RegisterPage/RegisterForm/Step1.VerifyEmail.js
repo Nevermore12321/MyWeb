@@ -12,9 +12,11 @@ import {
 } from 'antd';
 import { MailOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
+import { axiosPost } from '../../../utils/requests.axios';
 
 function SendEmailForm(props) {
     const [ form ] = Form.useForm();
+    let myTimer
 
     //  使用 forceUpdate 每次强制 更新 表单
     const [ , forceUpdate ] = useState();
@@ -24,23 +26,35 @@ function SendEmailForm(props) {
 
     useEffect(() => {
         forceUpdate({});
-    }, []);
+        // 解决警告：Can't perform a React state update on an unmounted component.
+        //  在 组件 销毁时，取消定时器
+        return () => clearInterval(myTimer)
+    }, [ myTimer ]);
 
     const onHandleSendEmail = (values) => {
         let maxLoadingTime = emailState.loadingTime;
 
         //  TODO: ajax backend send email
-        console.log(values);
-
+        console.log(values.email);
+        const emailData = {
+            email: values.email,
+        }
+        axiosPost('/admin/checkEmail', emailData).then((res) => {
+            console.log(res.status);
+            console.log(res.data);
+            // 收到 验证码后，修改 父组件中的 验证码 state
+            emailState.handleVerifyCode(res.data.verifyCode)
+            return res;
+        })
         //  按钮 变灰
         emailState.handleChangeBtnShowBool(false);
         //  按钮开启倒计时
-        const timer = setInterval(() => {
+        myTimer = setInterval(() => {
             if (maxLoadingTime <= 0) {
                 emailState.handleChangeBtnShowBool(true);
                 emailState.handleChangeLoadingTime(90);
                 console.log(emailState.loadingTime);
-                clearInterval(timer);
+                clearInterval(myTimer);
             } else {
                 maxLoadingTime -= 1;
                 emailState.handleChangeLoadingTime(maxLoadingTime);
@@ -101,9 +115,8 @@ function VerifyCaptchaForm(props) {
     }, []);
 
     const onHandleVerifyCode = (value) => {
-        // todo 验证码是否验证成功
-        // if (value.verifyCode === verifyCode) {
-        if (value.verifyCode === 'aaaaaa') {
+        //  验证码是否验证成功
+        if (value.verifyCode === verifyCode) {
             handleChangeCaptchaStatus(true);
         } else {
             message.error('Incorrect Verification Code');
@@ -160,10 +173,9 @@ function Step1VerifyEmail(props) {
     //  用于 表示 按钮不可点击
     const [ btnShowBool, setBtnShowBool ] = useState(true);
     //  等待时间 90
-    const [ loadingTime, setLoadingTime ] = useState(5);
+    const [ loadingTime, setLoadingTime ] = useState(90);
     //  邮件中的验证码
     const [ verifyCode, setVerifyCode ] = useState('');
-
     //  从 父组件中拿到 修改验证码是否验证成功的 函数
     const { handleChangeCaptchaStatus } = props;
 
